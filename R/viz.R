@@ -41,24 +41,7 @@ animation_vector = function(data, feild_pattern = NULL, outfile, colors = blues9
   brk <- seq(min(y), max(y), (max(y) - min(y)) / length(colors))
   n = names(d)[grepl(feild_pattern, names(d))]
   
-  gifski::save_gif({
-    for (t in 1:length(n)) {
-      try({
-       plot(
-          d,
-          n[t],
-          breaks = brk,
-          col = colors ,
-          legend = T,
-          axes = F,
-          box = F,
-          main = n[t]
-          )
-      }, silent = FALSE)
-    }
-  }, gif_file = outfile, width = 800, height = 600, delay = .5, loop = TRUE)
-  
-  return(outfile)
+  return(n)
 }
 
 
@@ -82,25 +65,5 @@ animation_raster = function(data, AOI = NULL, outfile, colors = blues9){
   brk <- seq(min(y), max(y), (max(y) - min(y)) / length(colors))
   n = names(data)
   
-  gifski::save_gif({
-    for (t in 1:nlyr(data)) {
-      try({
-        terra::plot(
-          data[[t]],
-          breaks = brk,
-          col = colors ,
-          legend = T,
-          axes = F,
-          box = F,
-          main = n[t]
-        )
-        if(!is.null(AOI)){
-          plot(spatAOI(AOI), col = NULL, add = TRUE)
-        }
-        
-      }, silent = F)
-    }
-  }, gif_file = outfile, width = 800, height = 600, delay = .5, loop = TRUE)
-  
-  return(outfile)
+  return(n)
 }
